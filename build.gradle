@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'vn.fit'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    jerseyVersion = '3.1.5'
+    weldVersion = '5.1.2.Final'
+}
+
+dependencies {
+    // Servlet API cho Tomcat 10
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    // CDI API
+    implementation 'jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1'
+    // Weld Servlet cho CDI tren Tomcat
+    implementation "org.jboss.weld.servlet:weld-servlet-core:${weldVersion}"
+    // Jersey REST Engine & JSON Jackson binding
+    implementation "org.glassfish.jersey.containers:jersey-container-servlet:${jerseyVersion}"
+    implementation "org.glassfish.jersey.inject:jersey-hk2:${jerseyVersion}"
+    implementation "org.glassfish.jersey.media:jersey-media-json-jackson:${jerseyVersion}"
+    // MariaDB Connector
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+test {
+    useJUnitPlatform()
+}
